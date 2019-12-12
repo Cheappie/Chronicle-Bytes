@@ -272,12 +272,10 @@ public class VanillaBytes<Underlying> extends AbstractBytes<Underlying>
 
     public void write(long position, @NotNull CharSequence str, int offset, int length)
             throws BufferOverflowException, IllegalArgumentException {
-        // todo optimise
         if (str instanceof String) {
-            @NotNull char[] chars = ((String) str).toCharArray();
             ensureCapacity(position + length);
             @NotNull NativeBytesStore nbs = (NativeBytesStore) bytesStore;
-            nbs.write8bit(position, chars, offset, length);
+            nbs.write8bit(position, (String) str, offset, length);
         } else {
             throw new UnsupportedOperationException();
         }
